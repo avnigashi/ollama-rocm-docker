@@ -24,7 +24,6 @@ prompt_reinstall() {
 read -p "Have you rebooted the system after the initial setup? (y/n): " REBOOTED
 if [[ $REBOOTED =~ ^[Nn]$ ]]; then
     echo "Please reboot the system and then rerun this script."
-    sudo reboot
     exit 0
 fi
 
@@ -188,5 +187,17 @@ ALIAS="alias drun='sudo docker run -it -e HSA_OVERRIDE_GFX_VERSION=10.3.0 --netw
 echo $ALIAS >> ~/.bashrc
 source ~/.bashrc
 check_status "Docker run alias setup"
+
+# Check if ROCm was installed but not working
+if ! rocminfo &> /dev/null; then
+    echo "ROCm appears to be installed but is not working. A reboot may be required."
+    read -p "Would you like to reboot now? (y/n): " REBOOT_NOW
+    if [[ $REBOOT_NOW =~ ^[Yy]$ ]]; then
+        echo "Rebooting system..."
+        sudo reboot
+    else
+        echo "Please reboot the system later to ensure ROCm is functioning properly."
+    fi
+fi
 
 echo "Installation complete. Please log out and log back in for the changes to take effect."
