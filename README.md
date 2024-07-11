@@ -27,7 +27,7 @@ This setup uses the `drun` command to run Docker containers with ROCm support, i
 
 Ensure your system meets the following requirements:
 
-- Ubuntu 18.04 or later
+- Ubuntu 22.04 or later
 - A compatible AMD GPU
 - Internet connection
 
