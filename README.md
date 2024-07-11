@@ -130,7 +130,8 @@ graph TD;
     L --> M[ollama.sh Script]
     H --> N[Set ollama Alias]
     N --> O[~/.bashrc]
-    O --> P["`Alias: ollama="/usr/local/bin/ollama.sh"`"]
+    O --> P[`Alias: ollama="/usr/local/bin/ollama.sh"`]
+
 ```
 
 ## Sources
