@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  ollama:
+    image: ollama/ollama:rocm
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama:/root/.ollama
+    devices:
+      - /dev/kfd
+      - /dev/dri
+    network_mode: host
+    ipc: host
+    shm_size: '16gb'
+    group_add:
+      - video
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp=unconfined
+    environment:
+      - ROCM_PATH=/opt/rocm
+      - PATH=/opt/rocm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - LD_LIBRARY_PATH=/opt/rocm/lib
+      - HSA_OVERRIDE_GFX_VERSION=10.3.0
+
+volumes:
+  ollama:
+
